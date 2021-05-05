@@ -66,7 +66,7 @@ public class mainController {
         return buff;
     }
 
-    @PostMapping("/home/addBank")
+    @PostMapping("/home/addShop")
     public String add(@RequestParam String name,
                       @RequestParam String address){
         Shop shop = new Shop();

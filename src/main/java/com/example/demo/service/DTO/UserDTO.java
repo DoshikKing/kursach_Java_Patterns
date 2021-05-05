@@ -1,12 +1,15 @@
 package com.example.demo.service.DTO;
 
+import com.example.demo.components.Role;
 import com.example.demo.components.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class UserDTO implements UserDetails {
     private User user;
@@ -17,7 +20,13 @@ public class UserDTO implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
+        List<Role> roles = user.getRoleList();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role: roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRole()));
+        }
+        return authorities;
     }
 
     @Override

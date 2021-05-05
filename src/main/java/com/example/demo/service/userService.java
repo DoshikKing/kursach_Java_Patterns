@@ -22,6 +22,10 @@ public class userService implements userServiceInterface, UserDetailsService {
         this.userRepo = userRepo;
     }
 
+    public userService() {
+
+    }
+
     @Override
     public void addUser(User user) {
         if(findUser(user.getLogin()) != null){
