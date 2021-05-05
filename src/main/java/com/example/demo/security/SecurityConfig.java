@@ -31,12 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/welcome", "/login", "/registration").permitAll()
-                .antMatchers(
+                .antMatchers("/errorPage",
                         "/logout", "/home", "/home/addRecord", "/home/removeRecord").hasAnyAuthority("USER", "ADMIN", "STAFF")
-                .antMatchers("/home/show").hasAnyAuthority("ADMIN", "STAFF")
-                .antMatchers("/errorPage", "/home/addShop", "/home/removeShop").hasAnyAuthority("ADMIN")
+                .antMatchers("/home/show", "/staff").hasAnyAuthority("ADMIN", "STAFF")
+                .antMatchers("/shopErrorPage", "/home/addShop",
+                        "/home/removeShop", "/home/getRecordShop",
+                        "/home/getShopByName", "/home/getShopById",
+                        "/home/getShopByAddress", "/home/getRecordById",
+                        "/home/getRecordByTime", "/home/getRecordByDate", "/admin").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin().defaultSuccessUrl("/home").permitAll()
+                .and().formLogin().defaultSuccessUrl("/forward").permitAll()
                 .and().logout().
                     invalidateHttpSession(true)
                     .clearAuthentication(true)

@@ -27,7 +27,7 @@ public class schedulerService implements schedulerInterface {
     @Autowired
     ShopService shopService;
     @Autowired
-    RecordService cardService;
+    RecordService recordService;
 
     @Async
     @Scheduled(fixedDelay = 1800000)
@@ -57,7 +57,7 @@ public class schedulerService implements schedulerInterface {
             File cards = new File(path + "/records.txt");
             cards.createNewFile();
             try(FileWriter writer = new FileWriter(cards, true);){
-                List<Record> recordList = cardService.getAllRecords();
+                List<Record> recordList = recordService.getAllRecords();
                 for (Record item : recordList) {
                     writer.write("id "+item.getId()+ " date " + item.getDate() + " time " + item.getTime() + " shops id " + item.getShop().getId() + "\n");
                 }
